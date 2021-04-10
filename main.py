@@ -1,6 +1,7 @@
 import tkinter as tk
 import math
 
+value_dict = {}
 canvas = None
 
 SQUARE_LENGTH = 100
@@ -35,9 +36,32 @@ def set_number(num, x, y):
   center_y = POSITION["y"] + BORDER_WIDTH * y + BORDER_WIDTH / 2 + SQUARE_LENGTH * y + SQUARE_LENGTH / 2
   canvas.create_rectangle(center_x - SQUARE_LENGTH / 2, center_y - SQUARE_LENGTH / 2, center_x + SQUARE_LENGTH / 2, center_y + SQUARE_LENGTH / 2, fill=CELL_COLOR, width=0)
   canvas.create_text(center_x, center_y, text=num, justify="center", font=("", 70), tag="count_text")
+  update_dict = {(x,y):num}
+  value_dict.update(update_dict)
+  
+  
 
 def operate(event):
   print(event.keysym)
+  if event.keysym == "Left":
+    print(value_dict)
+    canvas.delete("count_text")
+    set_number(value_dict[0,3],0,3)
+    set_number(value_dict[2,1],0,1)
+
+
+  # if event.keysym == "Right":
+  #    set_number("2", 3, 0) 
+  #    set_number("0", 3, 1) 
+  #    set_number("", 3, 2) 
+  #    set_number("", 3, 3) 
+  # elif event.keysym == "Left":
+  #    set_number("2", 2, 0) 
+  # elif event.keysym == "Up":
+  #    set_number("2", 1, 0) 
+  # elif event.keysym == "Down":
+  #    set_number("2", 0, 0) 
+
 
 def play():
   global canvas
